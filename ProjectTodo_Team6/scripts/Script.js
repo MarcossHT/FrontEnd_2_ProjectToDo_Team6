@@ -4,7 +4,7 @@ function logIn() {
     const inputPassword = document.getElementById('inputPassword').value;
     
     if(inputPassword.length > 8 && inputPassword.length < 12 && /.com$/.test(validEmail)) {
-        localStorage.setItem('login', JSON.stringify({validEmail: validEmail}));
+        // localStorage.setItem('login', JSON.stringify({validEmail: validEmail}));
         
         const data = {
             email: validEmail,
@@ -21,10 +21,11 @@ function logIn() {
         
         fetch('https://ctd-todo-api.herokuapp.com/v1/users/login', settings)
         .then(response => response.json())
-        .then(info => console.log(info))
-        .catch(err => {
-            console.log(err);
-        });
+        .then(info => {
+            console.log(info);
+            storage(validEmail, info);
+        })
+        .catch(err => console.log(err));
         
         alert('Login feito com sucesso!');
         window.location.href='./tarefas.html';
@@ -34,5 +35,6 @@ function logIn() {
     }
 }
 
-
-
+function storage(email, data) {
+    localStorage.setItem('user', JSON.stringify({login: email, reponse: data}));
+};
