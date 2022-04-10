@@ -1,16 +1,37 @@
 function logIn() {
-    const inputEmail = document.getElementById('inputEmail').value;
-    const validEmail = inputEmail.toLowerCase();
-    const inputPassword = document.getElementById('inputPassword').value;
+
+    const inputEmail = document.getElementById('emailInput');
+    const validEmail = inputEmail.value.toLowerCase();
+    const inputPassword = document.getElementById('passwordInput');
+    const errorEmail = document.getElementById('errorEmail');
+    const errorPwd = document.getElementById('errorPwd');
     
-    if(inputPassword.length > 8 && inputPassword.length < 12 && /.com$/.test(validEmail)) {
-        // localStorage.setItem('login', JSON.stringify({validEmail: validEmail}));
-        
+
+    function checkEmail() {
+        if (/.com$/.test(validEmail) === false || validEmail == "") {
+            return errorInput(inputEmail, errorEmail);
+        } else {
+            return successInput(inputEmail, errorEmail);
+        }
+
+    }
+
+    function ckeckPwd() {
+        if (inputPassword.length < 8 && inputPassword.length > 12 || inputPassword.value == "") {
+            return errorInput(inputPassword, errorPwd);
+        } else {
+            successInput(inputPassword, errorPwd);
+            api();
+        }
+    }
+
+    function api() {
+
         const data = {
             email: validEmail,
-            password: inputPassword,
+            password: inputPassword.value,
         };
-        
+
         const settings = {
             method: 'POST',
             headers: {
@@ -18,23 +39,40 @@ function logIn() {
             },
             body: JSON.stringify(data),
         };
-        
+
         fetch('https://ctd-todo-api.herokuapp.com/v1/users/login', settings)
-        .then(response => response.json())
-        .then(info => {
-            console.log(info);
-            storage(validEmail, info);
-        })
-        .catch(err => console.log(err));
-        
+            .then(response => response.json())
+            .then(info => {
+                console.log(info);
+                storage(validEmail, info);
+            })
+            .catch(err => console.log(err));
+
         alert('Login feito com sucesso!');
-        window.location.href='./tarefas.html';
+        window.location.href = './tarefas.html';
 
-    }else {
-        alert('Login não efetuado!');
+
     }
-}
 
-function storage(email, data) {
-    localStorage.setItem('user', JSON.stringify({login: email, reponse: data}));
+    function storage(email, data) {
+        localStorage.setItem('user', JSON.stringify({ login: email, reponse: data }));
+    };
+
+    function errorInput(input, inputSmall) {
+        input.classList.remove('success');
+        input.classList.add("error");
+        inputSmall.classList.add("errorSmall");
+        inputSmall.style.visibility = "visible";
+        return inputSmall.innerText = "Preencha o campo corretamente";
+    };
+    
+    function successInput(input, inputSmall) {
+        input.classList.remove('error');
+        inputSmall.classList.remove('errorSmall');
+        return inputSmall.style.visibility = "hidden";
+    }
+
+    checkEmail();
+    ckeckPwd();
+
 };

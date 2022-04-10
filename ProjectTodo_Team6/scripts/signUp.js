@@ -1,42 +1,69 @@
 function sign() {
-    const firstName = document.getElementById('nameInput').value;
-    const lastName = document.getElementById('LastNameInput').value;
-    const email = document.getElementById('emailInput').value;
-    const validMail = email.toLowerCase();
-    const password = document.getElementById('passwordInput').value;
-    const password2 = document.getElementById('passwordInput2').value;
-    const data = [];
+    const firstName = document.getElementById('nameInput');
+    const lastName = document.getElementById('LastNameInput');
+    const email = document.getElementById('emailInput');
+    const validMail = email.value.toLowerCase();
+    const password = document.getElementById('passwordInput');
+    const password2 = document.getElementById('passwordInput2');
+    const errorName = document.getElementById('errorName');
+    const errorLastName = document.getElementById('errorLastName');
+    const errorEmail = document.getElementById('errorEmail');
+    const errorPwd = document.getElementById('errorPwd');
+    const errorPwdTwo = document.getElementById('errorPwdTwo');
+
     
-    data.push(firstName, lastName, email, password, password2)
-    
-    
-    for(index of data) {
-        if(index == '') {
-            return alert('Campo em branco');
+    function validInputFirstName() {
+        if (/[0-9]/.test(firstName.value) || firstName.value == "") {
+            return errorInput(firstName, errorName);
+        }
+        else if (!/[0-9]/.test(firstName.value) && firstName.value != "") {
+            return successInput(firstName, errorName);
         }
     }
-    
-    
-    if (/[0-9]/.test(firstName) && /[0-9]/.test(lastName) || firstName === lastName) {
-        return alert('Insira um nome válido');
+
+    function validInputLastName() {
+        if (/[0-9]/.test(lastName.value) || lastName.value === firstName.value || lastName.value == "") {
+            return errorInput(lastName, errorLastName);
+        }
+        else if (!/[0-9]/.test(lastName.value) && lastName.value === firstName.value || lastName.value != "") {
+            return successInput(lastName, errorLastName);
+        }
     }
-    if(/.com$/.test(validMail) === false) {
-        return alert('Insira um email válido');
+
+    function validEmail() {
+        if (/.com$/.test(validMail) === false || validMail == "") {
+            return errorInput(email, errorEmail);
+        } else {
+            return successInput(email, errorEmail);
+        }
+
     }
-    if(password.length < 8 && password.length > 12) {
-        return alert('Insira uma senha válida');
+
+    function validPwd() {
+        if (password.length < 8 && password.length > 12 || password.value == "") {
+            return errorInput(password, errorPwd);
+        } else {
+            return successInput(password, errorPwd);
+        }
     }
-    if(password != password2) {
-        return alert('Insira uma senha válida');
-    }else {
-        
+
+    function validPwdTwo() {
+        if (password.value != password2.value || password2.value == "") {
+            return errorInput(password2, errorPwdTwo);
+        } else if (password2.value != "" && password2.value === password.value) {
+            successInput(password2, errorPwdTwo);
+            api();
+        }
+    }
+
+    function api() {
         const data = {
-            firstName: firstName,
-            lastName: lastName,
+            firstName: firstName.value,
+            lastName: lastName.value,
             email: validMail,
-            password: password,
+            password: password.value,
         };
-        
+
         const settings = {
             method: 'POST',
             headers: {
@@ -44,22 +71,45 @@ function sign() {
             },
             body: JSON.stringify(data),
         };
-        
-        fetch('https://ctd-todo-api.herokuapp.com/v1/users', settings)
-        .then(response => response.json())
-        .then(info => {
-            console.log(info);
-            storage(firstName, lastName, validMail, info);
-        })
-        .catch(err => {
-            console.log(err);
-        });
-        
-        alert('success!');
-        window.location.href='./index.html'
-    }
-}
 
-function storage(firstName, lastName, email, reponse) {
-   localStorage.setItem('user', JSON.stringify({firstName: firstName, lastName: lastName, email: email, reponse: reponse}));
-};
+        fetch('https://ctd-todo-api.herokuapp.com/v1/users', settings)
+            .then(response => response.json())
+            .then(info => {
+                console.log(info);
+                if(info === 'El usuario ya se encuentra registrado') {
+                    return alert('Usuário já cadastrado');
+                }
+                storage(firstName.value, lastName.value, validMail, info);
+            })
+            .catch(err => {
+                return console.log(err);
+            });
+
+        alert('success!');
+        window.location.href = './index.html'
+    }
+
+    function storage(firstName, lastName, email, reponse) {
+        localStorage.setItem('user', JSON.stringify({ firstName: firstName, lastName: lastName, email: email, reponse: reponse }));
+    };
+
+    function errorInput(input, inputSmall) {
+        input.classList.remove('success');
+        input.classList.add("error");
+        inputSmall.classList.add("errorSmall");
+        inputSmall.style.visibility = "visible";
+        return inputSmall.innerText = "Preencha o campo corretamente";
+    };
+    
+    function successInput(input, inputSmall) {
+        input.classList.remove('error');
+        inputSmall.classList.remove('errorSmall');
+        return inputSmall.style.visibility = "hidden";
+    }
+
+    validInputFirstName();
+    validInputLastName();
+    validEmail();
+    validPwd();
+    validPwdTwo();
+}
