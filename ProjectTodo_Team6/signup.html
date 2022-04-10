@@ -27,26 +27,36 @@
         <p>To-Do App</p>
       </div>
 
-      <label>
-        Nome:
-        <input type="text" required id="nameInput">
-      </label>
-      <label>
-        Sobrenome:
-        <input type="text" required id="LastNameInput">
-      </label>
-      <label>
-        Email:
-        <input type="text" required id="emailInput">
-      </label>
-      <label>
-        Senha:
-        <input type="password" required id="passwordInput">
-      </label>
-      <label>
-        Repetir senha:
-        <input type="password" required id="passwordInput2">
-      </label>
+      <div class="control">
+        <label>Nome:</label>
+        <input type="text" id="nameInput">
+        <small class="errorName" id="errorName"></small>
+      </div>
+
+      <div class="control">
+        <label>Sobrenome: </label>
+        <input type="text" id="LastNameInput">
+        <small class="errorLastName" id="errorLastName"></small>
+      </div>
+
+      <div class="control">
+        <label>Email:</label>
+        <input type="text" id="emailInput">
+        <small class="errorEmail" id="errorEmail"></small>
+      </div>
+
+      <div class="control">
+        <label>Senha:</label>
+        <input type="password" id="passwordInput">
+        <small class="errorPwd" id="errorPwd"></small>
+      </div>
+
+      <div class="control">
+        <label>Repetir senha:</label>
+        <input type="password" id="passwordInput2">
+        <small class="errorPwdTwo" id="errorPwdTwo"></small>
+      </div>
+
 
       <button type="button" id="button" onclick="sign()">Criar conta</button>
 
@@ -55,7 +65,7 @@
       <a href="index.html">Já possui conta? Acesse aqui</a>
     </div>
   </div>
-<script src="./scripts/signUp.js"></script>
+  <script src="./scripts/signUp.js"></script>
 </body>
 
 </html>

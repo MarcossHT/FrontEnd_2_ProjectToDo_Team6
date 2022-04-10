@@ -29,22 +29,21 @@
       <h1>Acessar</h1>
 
 
-      <label>
-        Email:
-        <input id="inputEmail" type="text" required>
-      </label>
-      <label>
-        Senha:
-        <input id="inputPassword" type="password" required>
-      </label>
+      <div class="control">
+        <label>Email:</label>
+        <input type="text" id="emailInput">
+        <small class="errorEmail" id="errorEmail"></small>
+      </div>
+
+      <div class="control">
+        <label>Senha:</label>
+        <input type="password" id="passwordInput">
+        <small class="errorPwd" id="errorPwd"></small>
+      </div>
 
       <button type="button" onclick="logIn()">Acessar</button>
 
     </form>
-    <div class="ingressar">
-      <a href="signup.html">Não possui conta? Crie agora mesmo</a>
-    </div>
-  </div>
 <script src="./scripts/Script.js"></script>
 </body>
 
