@@ -1,7 +1,8 @@
 const token = JSON.parse(localStorage.getItem("user")).response.jwt;
 const user = document.getElementById("user");
 const newTask = document.getElementById("newTask");
-const skeleton = document.getElementById("skeleton");
+const tasksToDo = document.getElementById("tasksToDo");
+const skeleton = document.getElementById("skeleton")
 const settings = {
   method: "GET",
   headers: {
@@ -27,9 +28,10 @@ function getTasks() {
     .then((response) => response.json())
     .then((info) => {
       console.log(info);
+      skeleton.style.display = "none";
       for(index of info) {
           console.log(index.description, index.completed);
-          skeleton.innerHTML += `<li class="tarefa">
+          tasksToDo.innerHTML += `<li class="tarefa">
           <div class="not-done"></div>
           <div class="descricao">
             <p class="nome">${index.description}</p>
