@@ -55,7 +55,7 @@ function logIn() {
     }
 
     function storage(email, data) {
-        localStorage.setItem('user', JSON.stringify({ login: email, reponse: data }));
+        localStorage.setItem('user', JSON.stringify({ login: email, response: data }));
     };
 
     function errorInput(input, inputSmall) {
