@@ -72,6 +72,10 @@ function getTasks() {
 }
 
 function postTasks() {
+  if (newTask.value == "") {
+    return alert("Dê um nome a sua tarefa");
+  }
+
   const data = {
     description: newTask.value,
     completed: false,
