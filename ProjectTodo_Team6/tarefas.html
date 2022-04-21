@@ -9,6 +9,9 @@
   <link rel="stylesheet" href="./styles/tarefas.css">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
+  <!-- ---------------- Sweetalert2 lib ---------------- -->
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   <!-- ------------------- Biblioteca de icones - Fontawesome -------------------- -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
     integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
@@ -35,7 +38,7 @@
     <div class="user-info">
       <p id="user">Nome usuário</p>
       <div class="user-image"></div>
-      <p id="closeApp" onclick="closeApp()">Finalizar sessão</i>
+      <p id="closeApp" onclick="closeApp()"title="deslogar">Finalizar sessão</i>
       </p>
     </div>
   </header>
@@ -43,10 +46,11 @@
 
   <form class="nova-tarefa">
     <div class="not-done "></div>
-    <input id="newTask" type="text" placeholder="Nova tarefa">
-    <button type="button" onclick="postTasks()">
-      <img src="./assets/plus.png" alt="Adicionar uma nova tarefa">
+    <input id="newTask" type="text" placeholder="Nova tarefa" title="escrever tarefa">
+    <button type="button" onclick="validInput()">
+      <img src="./assets/plus.png" alt="Adicionar uma nova tarefa" title="criar nova tarefa">
     </button>
+    <div class="spinner"></div>
   </form>
 
 
@@ -77,7 +81,7 @@
     </div>
   </ul>
 
-  <h2 class="titulo-terminadas">Tarefas terminadas</h2>
+  <h2 class="titulo-terminadas" title="terminadas">Tarefas terminadas</h2>
   <ul class="tarefas-terminadas" id="finishedTasks">
     <div id="skeleton">
     </div>
@@ -86,14 +90,8 @@
   <div>
     <button type="button"></button>
     
-    
-    <!-- <select name="changeStatus" id="changeStatus">Trocar status da tarefa
-      <option value=""></option>
-      <option value="">Finalizadas</option>
-      <option value="">Pendentes</option>
-    </select> -->
   </div>
-
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
   <script src="./scripts/tasks.js"></script>
 </body>
 

@@ -1,4 +1,5 @@
 @import url('./common.css');
+
 header {
   display: flex;
   background: linear-gradient(90deg, var(--primary), var(--secondary));
@@ -28,22 +29,27 @@ a {
 }
 
 .user-info .user-image {
-  height: 2em;
-  width: 2em;
+  height: 1.7em;
+  width: 1.8em;
   border-radius: 50%;
   background-color: white;
   opacity: .4;
   margin-left: .7em;
 }
 
-#closeApp{
+#closeApp {
   margin-left: 15px;
   font-size: .7em;
-  background-color: rgb(218, 88, 88);
+  background-color: #c22948ce;
   color: white;
   border-radius: 50vh;
-  padding: 5px 10px;
+  padding: 8px 10px;
   cursor: pointer;
+  
+}
+
+#closeApp:hover {
+  background-color: crimson;
 }
 
 /* Nova tarefa ----------------------------------------------------------- */
@@ -141,6 +147,21 @@ a {
   background-color: var(--secondary);
 }
 
+.tarefa .done:hover {
+  background-color: var(--app-grey);
+}
+
+
+
+.tarefa .done:hover .not-complete {
+  opacity: 1;
+}
+
+.tarefa .not-done:hover .not-complete {
+  opacity: 1;
+
+}
+
 .tarefa:first-child .not-done::before {
   content: '';
   position: absolute;
@@ -173,11 +194,15 @@ a {
   box-shadow: 2px 2px 5px lightgrey;
 }
 
+
 .tarefa .nome {
   color: rgb(95, 95, 95);
 }
 
 .tarefa .timestamp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: .9em;
   color: rgb(134, 134, 134);
 }
@@ -207,12 +232,8 @@ a {
   margin: 2em 15%;
 }
 
-.tarefas-terminadas i{
-  color: grey;
-  background-color: rgb(228, 228, 228);
-}
-.tarefas-terminadas button{
-  margin-left: 10px;
+.tarefas-terminadas i {
+  color: #fff;
 }
 
 .tarefas-terminadas .tarefa .descricao {
@@ -224,21 +245,89 @@ a {
   text-decoration: line-through;
 }
 
-#skeleton .descricao{
-  background-color: rgb(189, 189, 189);
-}
-#skeleton p{
-  background-color: rgb(214, 214, 214);
-  color: rgb(214, 214, 214);
-}
-#skeleton .not-done{
+#skeleton .descricao {
   background-color: rgb(189, 189, 189);
 }
 
-#skeleton{
+#skeleton p {
+  background-color: rgb(214, 214, 214);
+  color: rgb(214, 214, 214);
+}
+
+#skeleton .not-done {
+  background-color: rgb(189, 189, 189);
+}
+
+#skeleton {
   animation: trasparencia 1s infinite;
 }
+
+.not-complete {
+  opacity: 0;
+  border: none;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background-color: var(--secondary);
+}
+
+.complete {
+  opacity: 1;
+  border: none;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background-color: var(--secondary);
+}
+
+.ri-file-edit-line::before {
+  color: #000000ed;
+ text-align: center;
+  margin-left: 10px;
+  font-size: 17px;
+  cursor: pointer;
+} 
+.ri-file-edit-line {
+  opacity: 0.7;
+}
+
+.ri-file-edit-line:hover {
+  opacity: 1;
+  color: #000000;
+  
+}
+
+.ri-check-double-fill {
+  font-size: 18px;
+  color: #fff;
+}
+
+.ri-delete-bin-line {
+  opacity: 0.7;
+  color: rgb(210, 31, 67);
+}
+
+.ri-delete-bin-line:hover {
+  opacity: 1;
+}
+
+.ri-delete-bin-line::before {
+  color: red;
+  margin-left: 8px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
 @keyframes trasparencia {
-  0%{ opacity: 0.5;}
-  100%{ opacity: 0.8;}
+  0% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 0.8;
+  }
 }
