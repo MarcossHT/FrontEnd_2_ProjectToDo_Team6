@@ -58,7 +58,7 @@ function logIn() {
       "user",
       JSON.stringify({ login: email, response: data })
     );
-    window.location.href = "./tarefas.html";
+    window.location.href = "https://marcossht.github.io/FrontEnd_2_ProjectToDo_Team6/ProjectTodo_Team6/tarefas.html";
   }
 
   function errorInput(input, inputSmall) {
