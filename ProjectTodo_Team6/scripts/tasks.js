@@ -203,7 +203,7 @@ function closeApp() {
   off();
   setTimeout(() => {
     localStorage.removeItem(`user`);
-    window.location = "././index.html";
+    window.location = "https://marcossht.github.io/FrontEnd_2_ProjectToDo_Team6/ProjectTodo_Team6/index.html";
     console.log(`clicked`);
   }, 1000);
 }
